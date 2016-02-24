@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">    
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+        <script src="app.js"></script>
+        
+        
+    </head>
+<body ng-app="mailApp">
+    <div class="page-container" ng-controller="MailController as mailCtrl">
+        <header class="horizontal-container">
+            <!--<div ng-include=" 'components/mail-search.html' "></div>-->
+            <mail-search default-query=" mailCtrl.defaultQuery " ></mail-search>
+        </header>
+
+        <div class="horizontal-container page-center">
+            <section class="folder-list"> 
+                <folder-list></folder-list>
+            </section>
+            
+            <section class="horizontal-center"> Message List
+                   {{ "hello" + "world"}}         <br/>                <br/>                <br/>
+            </section>
+            
+        </div>
+
+
+        <footer> powered by Angular
+            <br/>
+        </footer>
+        
+    </div>
+</body>
+</html>
