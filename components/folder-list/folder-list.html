@@ -1,0 +1,7 @@
+<h3>{{folderListCtrl.title}}</h3>
+<ul>
+    <li ng-repeat="folder in folderListCtrl.folders">{{folder}}
+        <span ng-if="folder == folderListCtrl.defaultFolder">*</span>
+    </li>
+    
+</ul>

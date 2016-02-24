@@ -3,6 +3,8 @@
         <link rel="stylesheet" href="style.css">    
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
         <script src="app.js"></script>
+        <script src="components/mail-search/mail-search.js"></script>
+        <script src="components/folder-list/folder-list.js"></script>
         
         
     </head>
@@ -15,7 +17,13 @@
 
         <div class="horizontal-container page-center">
             <section class="folder-list"> 
-                <folder-list></folder-list>
+                <folder-list folders=" mailCtrl.folders " ></folder-list>
+                
+                <!-- passing a specific value-->
+                <folder-list 
+                    folders=" ['Spam','Trash'] " 
+                    title="Custom folders">
+                </folder-list>
             </section>
             
             <section class="horizontal-center"> Message List

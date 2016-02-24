@@ -1,42 +1,31 @@
 angular.module("mailApp",[]);
 
 
+function FolderService()
+{
+    var folders = [];
+    
+    this.loadFolders = function(){
+        folders.push("Inbox");
+        folders.push("Drafts");
+        folders.push("Sent");
+        return folders;
+    };
 
-function MailController(){
+    this.getFolders = function(){
+        return folders; 
+    }        
+}
+angular.module("mailApp").service("FolderService",FolderService);
+
+
+/* Main page controller, coordinates all the other components  */
+function MailController(FolderService){
     this.defaultQuery = "js";
+    
+    //loads data from services (or backend)
+    this.folders = FolderService.loadFolders();
     
 }
 angular.module("mailApp").controller("MailController", MailController);
 
-function MailSearchController()
-{
-    if (!this.defaultQuery)
-        this.defaultQuery="in:inbox";
-    
-    this.query = this.defaultQuery;
-}
-
-
-//mailSearch is the name in the html (- becomes uppercase letter)
-angular.module("mailApp").directive("mailSearch", function(){
-    //directive constructor function
-    console.log("mailSearch directive"); 
-    
-    //returns a directive definition object (DDO) or directive config
-    return {
-        templateUrl : "components/mail-search.html",
-        controller : MailSearchController, 
-        controllerAs: "mailSearchCtrl",
-        restrict: "E", 
-        bindToController: {
-            defaultQuery : "=defaultQuery"
-        }
-        
-    };
-});
-
-
-//component name - component definition object
-angular.module("mailApp").component("folderList",{
-    templateUrl : "components/folder-list.html"
-});
