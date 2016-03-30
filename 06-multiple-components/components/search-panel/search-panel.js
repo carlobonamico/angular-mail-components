@@ -9,7 +9,7 @@ angular.module("mail.search")
         bindings: {
             "defaultQuery" : "=", //input parameter, with data binding
             "onSearchResults" : "&", //callback
-            "onStartSearch" : "&",
+            "onSearchStart" : "&",
         }
    
     });
@@ -24,7 +24,7 @@ function SearchPanelController(){
     }
 
     this.search = function (query) {
-        this.onStartSearch({
+        this.onSearchStart({
             query : query
         });
         

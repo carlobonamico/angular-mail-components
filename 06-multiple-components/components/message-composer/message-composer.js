@@ -1,5 +1,3 @@
-angular.module("mailApp",[]);
-
 angular.module("mailApp")
     .component("messageComposer", //becomes message-composer in html 
     {
@@ -10,6 +8,8 @@ angular.module("mailApp")
             "draft" : "=", //input parameter, with data binding
             "onSend" : "&", //callback
             "onSave" : "&",
+            "onCancel" : "&",
+            
         }
    
     });

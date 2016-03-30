@@ -10,7 +10,7 @@ angular.module("mailApp").component("messageList",{
         messages : "=messages",  //mandatory
         //it is the same as folders:"=?"
         //? means optional
-        title: "@", //equivalent to "@title",
+        title: "=", //equivalent to "=title",
         onReply : "&",
         onForward : "&",
         onDelete : "&",
@@ -39,15 +39,18 @@ function MessageListController() {
     //FUTURE lab - refactor the messageActionsToolbar with transclusion
     this.reply = function (message) {
         
-        this.onReply(message);
+        this.onReply({
+            message : message
+        });
     };
     this.forward = function (message) {
-        
-        this.onForward(message);
+        //TODO lab        
     };
 
     this.delete = function (message) {
         //TODO ask for confirmation
-        this.onDelete(message);
+        this.onDelete({
+            message : message
+        });
     };
 }

@@ -12,8 +12,9 @@ angular.module("mailApp").component("folderList",{
         //? means optional
         defaultFolder : "=?", //the default folder is optional, 
         title: "@", //equivalent to "@title",
-        allowCreate: "@"
-        
+        allowCreate: "@",
+        onSelect: "&",
+        onAddNew: "&",
     } 
     
 });
@@ -25,18 +26,28 @@ function FolderListController()
         
     //implicit, inherited from the bindings declaration 
     //this.folders = []
-    
-    if (!this.defaultFolder && this.folders && this.folders.length >0)
-    {
-        this.defaultFolder = this.folders[0];
-    }
+
     
     this.addFolder = function (newFolderName) {
         //TODO discuss if it is better here or in the parent
         this.folders.push(newFolderName);
+        this.onAddNew({
+            folder: newFolderName
+        })
     };
-
-    this.currentFolder = "Inbox";
+    
+    this.select = function (folder)
+    {
+        this.currentFolder = folder; 
+        this.onSelect({
+            folder: folder
+        });
+    };
+    
+    if (this.defaultFolder)
+    {
+        this.select(this.defaultFolder);
+    }
 
 }
 

@@ -1,4 +1,4 @@
-angular.module("mailApp", []);
+angular.module("mailApp", ["mail.search"]);
 
 
 

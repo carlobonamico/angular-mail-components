@@ -1,56 +1,64 @@
 angular.module("mailApp", ["mail.search"]);
 
-/*
-function FolderService()
-{
-    var folders = [];
-    
-    this.loadFolders = function(){
-        folders.push("Inbox");
-        folders.push("Drafts");
-        folders.push("Sent");
-        return folders;
-    };
-
-    this.getFolders = function(){
-        return folders; 
-    }        
+/** a very basic service */
+function AccountServiceImpl(){
+        var accountEmail = "carlo.bonamico@gmail.com";
+        
+        this.getAccountEmail = function ()
+        {
+            return accountEmail;
+        };
 }
-angular.module("mailApp").service("FolderService",FolderService);
-*/
+
+angular.module("mailApp")
+    .service("AccountService", AccountServiceImpl);
+    
+/** a very basic controller which requests injection of a service */
+function AccountController(AccountService) {
+    this.accountEmail = AccountService.getAccountEmail();
+}
+
+angular.module("mailApp")
+    .controller("AccountController", AccountController);
+
+
 /* Main page controller, coordinates all the other components  */
-function MailController()
+function MailController(AccountService)
 {
     this.defaultQuery = "js";
     
     //TODO load messages list from service
-    this.messages = [
-        {
-            to: "carlo.bonamico@gmail.com",
-            from: "sonia.pini@nispro.it",
-            subject: "Angular 1.5",
-            body: " a b c "
-        },
-        {
-            to: "carlo.bonamico@gmail.com",
-            from: "carlo.bonamico@nispro.it",
-            subject: "Typescript",
-            body: " a b c d e f  "
-        },
-        {
-            to: "carlo.bonamico@gmail.com",
-            from: "sonia.pini@nispro.it",
-            subject: "Flexbox how-to",
-            body: " a b c d e f  "
-        },
-        {
-            to: "carlo.bonamico@gmail.com",
-            from: "sonia.pini@nispro.it",
-            subject: "Re: ES6 tutorial",
-            body: " a b c d e f  "
-        }
-        
-    ];
+    function loadInbox(){
+        var messages = [
+            {
+                to: "carlo.bonamico@gmail.com",
+                from: "sonia.pini@nispro.it",
+                subject: "Angular 1.5",
+                body: " a b c "
+            },
+            {
+                to: "carlo.bonamico@gmail.com",
+                from: "carlo.bonamico@nispro.it",
+                subject: "Typescript",
+                body: " a b c d e f  "
+            },
+            {
+                to: "carlo.bonamico@gmail.com",
+                from: "sonia.pini@nispro.it",
+                subject: "Flexbox how-to",
+                body: " a b c d e f  "
+            },
+            {
+                to: "carlo.bonamico@gmail.com",
+                from: "sonia.pini@nispro.it",
+                subject: "Re: ES6 tutorial",
+                body: " a b c d e f  "
+            }
+        ];
+        return messages;
+    };
+    
+    this.messages = [];
 
     this.delete = function (message) {
         var index = this.messages.indexOf(message);
@@ -69,10 +77,16 @@ function MailController()
         "Angular",
         "Typescript",
     ];
+    this.defaultFolder = 'Inbox';
     
     this.selectFolder = function (folderName) {
         this.messageListTitle = folderName;
         
+        if ("Inbox" == folderName)
+        {
+            this.messages = loadInbox();
+            return;
+        }   
         //TODO load data from services (or backend)
         this.messages = [
             {
@@ -117,7 +131,7 @@ function MailController()
     };
 
   
-    this.reply = function (message){
+    this.replyTo = function (message){
         //TODO optional lab: delegate reply to MessageReplyService
         var template = {
             to: message.from,
@@ -132,22 +146,31 @@ function MailController()
         //TODO optional lab:
         
     };
-    
-    this.closeComposer = function (message) {
-        this.composeActive = false; 
+
+    //TODO discuss if initialize the sender here or in the composer    
+    this.draft = {
+        from : AccountService.getAccountEmail()
+    };
+
+    this.send = function (message) {
+        this.closeComposer(); 
 
         //TODO add to sent
         //close compose  
     };
     
+    this.closeComposer = function () {
+        this.composerActive = false; 
+    };
+    
     this.compose = function (template) {
-        this.composeActive = false; 
     
         if (template) {
             this.draft.to = template.to;
             this.draft.subject = template.subject;
-            this.draft.body = ""; //TODO add signature 
+            this.draft.body = template.body; //TODO add signature 
         } 
+        this.composerActive = true; 
     };
 
 //too on search results
@@ -159,23 +182,5 @@ function MailController()
 angular.module("mailApp")
     .controller("MailController", MailController);
 
-console.log("aa");
-function AccountServiceImpl(){
-        var accountEmail = "carlo.bonamico@gmail.com";
-        
-        this.getAccountEmail = function ()
-        {
-            return accountEmail;
-        };
-}
 
-angular.module("mailApp")
-    .service("AccountService", AccountServiceImpl);
-
-function AccountController(AccountService) {
-    this.accountEmail = AccountService.getAccountEmail();
-}
-
-angular.module("mailApp")
-    .controller("AccountController", AccountController);
 

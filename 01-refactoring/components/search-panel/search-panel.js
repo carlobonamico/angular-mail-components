@@ -1,4 +1,6 @@
-angular.module("mailApp")
+angular.module("mail.search",[]);
+
+angular.module("mail.search")
     .component("searchPanel", //becomes search-panel in html 
     {
         controller: SearchPanelController, 

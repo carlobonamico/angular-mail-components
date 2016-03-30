@@ -19,6 +19,7 @@
             
             <search-panel 
                 default-query=" mailCtrl.defaultQuery "
+                on-search-start = "mailCtrl.messageListTitle = 'Messages matching '+query "
                 on-search-results = "mailCtrl.messages = results "
                 >
             </search-panel>
@@ -37,18 +38,22 @@
             
                 <section class="folder-list">
                     <folder-list 
-                        folders=" mailCtrl.folders " >
+                        folders=" mailCtrl.folders " 
+                        default-folder=" mailCtrl.defaultFolder "
+                        on-select="mailCtrl.selectFolder(folder)">
                     </folder-list>
 
                     <folder-list 
                         title="Custom folders"
-                        folders=" mailCtrl.customFolders " 
+                        folders=" mailCtrl.customFolders "
+                        on-select="mailCtrl.selectFolder(folder)" 
                         allow-create="true">
                     </folder-list>
                     
                     <!-- passing a specific value-->
                     <folder-list 
                         folders=" ['Trash'] " 
+                        on-select="mailCtrl.selectFolder(folder)"
                         title="Other">
                     </folder-list>
 
@@ -56,11 +61,11 @@
             </nav>
             
             <section class="mail-composer"
-                     ng-show="mailCtrl.composeActive">
+                     ng-show="mailCtrl.composerActive">
                 <message-composer 
                     draft="mailCtrl.draft"
                     on-save="mailCtrl.updateDraft(draft)"
-                    on-send="mailCtrl.closeComposer()"
+                    on-send="mailCtrl.send()"
                     on-cancel="mailCtrl.closeComposer()"
                 >
                     
