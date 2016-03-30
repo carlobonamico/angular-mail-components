@@ -5,7 +5,7 @@
         <script src="app.js"></script>
         <script src="components/mail-search/mail-search.js"></script>
         <script src="components/folder-list/folder-list.js"></script>
-        
+        <script src="components/message-list/message-list.js"></script>
         
     </head>
 <body ng-app="mailApp">
@@ -26,8 +26,8 @@
                 </folder-list>
             </section>
             
-            <section class="horizontal-center"> Message List
-                   {{ "hello" + "world"}}         <br/>                <br/>                <br/>
+            <section class="horizontal-center">
+                  <message-list messages="mailCtrl.messages"></message-list>
             </section>
             
         </div>

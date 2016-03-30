@@ -1,0 +1,115 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Angular Component Mail</title>
+</head>
+
+<body>
+    <div class="page-container">
+        <header class="horizontal-container">
+            <!--<div ng-include=" 'components/mail-search.html' "></div>-->
+            <div class="logo">Angular Mail</div>
+            <div>
+                Search messages:
+                <input type="text">
+                <button>Search</button>
+            </div>
+        </header>
+
+        <section class="page-center horizontal-container">
+            <nav class="page-left-menu">
+                <section class="compose-toolbar">
+                    <button>Compose</button>
+                </section>
+                <section class="folder-list">
+                    <h3>Folders</h3>
+                    <ul>
+                        <li>Inbox
+                            <span>*</span>
+                        </li>
+                        <li>Trash
+                        </li>
+                        <li>Outbox
+                        </li>
+                    </ul>
+                </section>
+                <section class="folder-list">
+                    <h3>Custom</h3>
+                    <ul>
+                        <li>Angular
+                        </li>
+                        <li>Typescript
+                        </li>
+                        <li><button>Add...</button>
+                        </li>
+                    </ul>
+                </section>
+            </nav>
+
+            <section class="horizontal-center message-list">
+                <h3>Inbox - 4 messages</h3>
+                <button>Next</button>
+                <button>Prev</button>
+                <div class="message message-list-odd">
+                    <div class="message-summary">
+                        <input type="checkbox">
+                        <span class="star"> * </span>
+                        <span> 0 From: sonia.pini@nispro.it</span>
+                        <span> Angular 1.5</span>
+                        <span> 10/03/2016 12:00</span>
+                    </div>
+                    <pre class="message-body" hidden>
+                        The new release is out...
+                    </pre>
+                </div>
+                <div class="message">
+                    <div class="message-summary message-selected">
+                        <input type="checkbox">
+                        <span class="star"> * </span>
+                        <span> 1 From: carlo.bonamico@nispro.it</span>
+                        <span> Flexbox how-to</span>
+                        <span> 09/03/2016 12:00</span>
+                    </div>
+                    <pre class="message-body">
+                        The new release is out...
+                    </pre>
+                </div>
+                <div class="message message-list-odd">
+                    <div class="message-summary">
+                        <input type="checkbox">
+                        <span class="star"> * </span>
+                        <span> 2 From: sonia.pini@nispro.it</span>
+                        <span> Typescript tutorial </span>
+                        <span> 09/03/2016 12:00</span>
+                    </div>
+                    <pre class="message-body" hidden>
+                        The new release is out...
+                    </pre>
+                </div>
+                <div class="message">
+                    <div class="message-summary">
+                        <input type="checkbox">
+                        <span class="star star-starred"> * </span>
+                        <span> 3 From: sonia.pini@nispro.it</span>
+                        <span> ES6 tutorial </span>
+                        <span> 09/03/2016 12:00</span>
+                    </div>
+                    <pre class="message-body" hidden>
+                        The new release is out...
+                    </pre>
+                </div>
+
+            </section>
+
+    </section>
+
+
+    <footer> powered by Angular
+        <br/>
+    </footer>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <xscript src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js" defer></xscript>
+    <script src="../lib/angular-1.5.3/angular.js" defer></script>
+    <script src="app.js" defer></script>
+
+    <title>Angular Component Mail</title>
+</head>
+
+<body ng-app="mailApp">
+    <div class="page-container" ng-controller="MailController as mailCtrl">
+        <header class="horizontal-container">
+            <!--<div ng-include=" 'components/mail-search.html' "></div>-->
+            <div class="logo">Angular Mail</div>
+            <div>
+                Search messages:
+                <input type="text" ng-model="mailCtrl.query">
+                <button ng-click="mailCtrl.search(mailCtrl.query)">Search</button>
+            </div>
+        </header>
+
+        <section class="page-center horizontal-container">
+            <nav class="page-left-menu">
+                <section class="compose-toolbar">
+                    <button ng-click="mailCtrl.compose()">Compose</button>
+                </section>
+                <section class="folder-list">
+                    <h3>Folders</h3>
+                    <ul>
+                        <li ng-repeat="folder in mailCtrl.folders" 
+                            ng-click="mailCtrl.selectFolder(folder)">{{folder}}
+                            <span ng-if="folder == mailCtrl.currentFolder">*</span>
+                        </li>
+                    </ul>
+                </section>
+                <section class="folder-list">
+                    <h3>Custom</h3>
+                    <ul>
+                        <li ng-repeat="folder in mailCtrl.customFolders"
+                            ng-click="mailCtrl.selectFolder(folder)">{{folder}}
+                            <span ng-if="folder == mailCtrl.currentFolder">*</span>
+                        </li>
+                        <li><input type="text" ng-model="newFolderName">
+                            <button ng-click="mailCtrl.addFolder(newFolderName)">+</button>
+                        </li>
+                    </ul>
+                </section>
+            </nav>
+            <section class="mail-composer" ng-show="mailCtrl.composeActive">
+                <h3>Compose message</h3>
+                To: <input type="email" ng-model="mailCtrl.draft.to"><br/>
+                Subject: <input ng-model="mailCtrl.draft.subject"><br/>
+                Body: <textarea ng-model="mailCtrl.draft.body"></textarea><br/>
+                <button ng-click="mailCtrl.send(this.draft)">Send</button>
+            </section>    
+            <section class="horizontal-center message-list">
+                <h3>{{mailCtrl.currentFolder}} - {{mailCtrl.messages.length}} messages</h3>
+                <button ng-click="mailCtrl.next()">Next</button>
+                <button>Prev</button>
+                <div ng-repeat="message in mailCtrl.messages" class="message" ng-class="{'message-list-odd' : $odd}">
+                    <div class="message-summary" ng-class="{'message-current' : $index == mailCtrl.currentMessageIndex}">
+                        <input type="checkbox" ng-model="message.selected">
+                        <span class="star"> * </span>
+                        <span> {{$index}} From: {{message.from}}</span>
+                        <span> {{message.subject}}</span>
+                        <span> 10/03/2016 12:00</span><!-- TODO date formatted with filter -->
+                        <button ng-click="mailCtrl.reply(message)">Reply</button>
+                        <button ng-click="mailCtrl.reply(message)">Forward</button>
+                    </div>
+                    <pre class="message-body" ng-show="message === mailCtrl.currentMessage">{{message.body}}</pre>
+                </div>
+
+            </section>
+
+    </section>
+
+
+    <footer> powered by Angular
+        <br/>
+    </footer>
+
+    </div>
+</body>
+
+</html>

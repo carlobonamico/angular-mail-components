@@ -1,0 +1,19 @@
+<h3>{{messageListCtrl.title}} - {{messageListCtrl.messages.length}} messages</h3>
+Current: {{messageListCtrl.current}}<button ng-click="messageListCtrl.next()">Next Message</button>
+<div 
+        ng-repeat="message in messageListCtrl.messages track by $index"
+>
+    <div class="message-summary" 
+        ng-class="{ 'message-list-even': $even, 'message-list-odd': $odd}"
+        >
+       <span> {{$index}} {{message.from}}</span>
+       <span> {{message.subject}}</span>
+       <span> {{message.date}}</span>
+       
+        <pre class="message-body" ng-show="$index == messageListCtrl.current">{{message.body}}
+        </pre>
+
+
+    </div>
+    
+</div>

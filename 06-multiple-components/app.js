@@ -26,6 +26,33 @@ function MailController(FolderService){
     //loads data from services (or backend)
     this.folders = FolderService.loadFolders();
     
+    this.messages = [
+      {
+          to: "carlo.bonamico@gmail.com",
+          from: "test@test.com",
+          subject: "Hello World",
+          body: " a b c "
+      } , 
+      {
+          to: "carlo.bonamico@gmail.com",
+          from: "test@test.com",
+          subject: "Hello World 2",
+          body: " a b c d e f  "
+      } , 
+      {
+          to: "carlo.bonamico@gmail.com",
+          from: "test@test.com",
+          subject: "Hello World 32",
+          body: " a b c d e f  "
+      } ,
+      {
+          to: "carlo.bonamico@gmail.com",
+          from: "test@test.com",
+          subject: "Hello World123 2",
+          body: " a b c d e f  "
+      } 
+        
+    ];
 }
 angular.module("mailApp").controller("MailController", MailController);
 
