@@ -1,7 +1,11 @@
 <h3>{{folderListCtrl.title}}</h3>
 <ul>
-    <li ng-repeat="folder in folderListCtrl.folders">{{folder}}
-        <span ng-if="folder == folderListCtrl.defaultFolder">*</span>
+    <li ng-repeat="folder in folderListCtrl.customFolders track by $index"
+        ng-click="folderListCtrl.selectFolder(folder)">{{$index}} - {{folder}}
+        <span ng-if="folder == folderListCtrl.currentFolder">*</span>
     </li>
-    
+    <li ng-if="folderListCtrl.allowCreate">
+        <input type="text" ng-model="newFolderName">
+        <button ng-click="folderListCtrl.addFolder(newFolderName)">+</button>
+    </li>
 </ul>

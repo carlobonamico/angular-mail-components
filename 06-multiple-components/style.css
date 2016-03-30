@@ -85,8 +85,11 @@ footer {
     background-color: white;
 }
 
-.message-selected {
+.message-current {
     font-weight: bold;
+}
+.message-selected {
+    background-color: yellow;
 }
 
 .star{

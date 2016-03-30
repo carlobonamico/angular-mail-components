@@ -1,39 +1,87 @@
 <html>
     <head>
         <link rel="stylesheet" href="style.css">    
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
-        <script src="app.js"></script>
-        <script src="components/mail-search/mail-search.js"></script>
-        <script src="components/folder-list/folder-list.js"></script>
-        <script src="components/message-list/message-list.js"></script>
-        
+        <script src="../lib/angular-1.5.3/angular.js" defer></script>
+        <script src="app.js" defer></script>
+        <script src="components/search-panel/search-panel.js" defer></script>
+        <script src="components/folder-list/folder-list.js" defer></script>
+        <script src="components/message-list/message-list.js" defer></script>
+        <script src="components/message-composer/message-composer.js" defer></script>
     </head>
+
 <body ng-app="mailApp">
-    <div class="page-container" ng-controller="MailController as mailCtrl">
+    <div class="page-container" 
+        ng-controller="MailController as mailCtrl">
+
         <header class="horizontal-container">
             <!--<div ng-include=" 'components/mail-search.html' "></div>-->
-            <mail-search default-query=" mailCtrl.defaultQuery " ></mail-search>
+            <div class="logo">Angular Mail</div>
+            
+            <search-panel 
+                default-query=" mailCtrl.defaultQuery "
+                on-search-results = "mailCtrl.messages = results "
+                >
+            </search-panel>
+            
+            <div ng-controller="AccountController as accountCtrl">
+                {{accountCtrl.accountEmail}}
+            </div>
         </header>
 
-        <div class="horizontal-container page-center">
-            <section class="folder-list"> 
-                <folder-list folders=" mailCtrl.folders " ></folder-list>
+        <section class="page-center horizontal-container">
+            <nav class="page-left-menu">
                 
-                <!-- passing a specific value-->
-                <folder-list 
-                    folders=" ['Spam','Trash'] " 
-                    title="Custom folders">
-                </folder-list>
-            </section>
+                <section class="compose-toolbar">
+                    <button ng-click="mailCtrl.compose()">Compose</button>
+                </section>
             
-            <section class="horizontal-center">
-                  <message-list messages="mailCtrl.messages"></message-list>
-            </section>
+                <section class="folder-list">
+                    <folder-list 
+                        folders=" mailCtrl.folders " >
+                    </folder-list>
+
+                    <folder-list 
+                        title="Custom folders"
+                        folders=" mailCtrl.customFolders " 
+                        allow-create="true">
+                    </folder-list>
+                    
+                    <!-- passing a specific value-->
+                    <folder-list 
+                        folders=" ['Trash'] " 
+                        title="Other">
+                    </folder-list>
+
+                </section>
+            </nav>
             
-        </div>
+            <section class="mail-composer"
+                     ng-show="mailCtrl.composeActive">
+                <message-composer 
+                    draft="mailCtrl.draft"
+                    on-save="mailCtrl.updateDraft(draft)"
+                    on-send="mailCtrl.closeComposer()"
+                    on-cancel="mailCtrl.closeComposer()"
+                >
+                    
+                </message-composer>    
+            </section> 
+                                             
+            <section class="horizontal-center message-list">
+                <message-list 
+                    title="mailCtrl.messageListTitle"
+                    messages="mailCtrl.messages"
+                    on-reply="mailCtrl.replyTo(message)"
+                    on-forward="mailCtrl.forward(message)"
+                    on-delete="mailCtrl.delete(message)"
+                    >
+                </message-list>
+            </section>
 
-
-        <footer> powered by Angular
+        </section>
+        
+        <footer> 
+            powered by Angular 1.5 and <a href="http://www.nispro.it">NIS s.r.l.</a>
             <br/>
         </footer>
         
