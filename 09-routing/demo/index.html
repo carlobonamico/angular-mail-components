@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">    
+        <script src="../../lib/angular-1.5.3/angular.js" defer></script>
+        <script src="../../lib/angular-ui-router/release/angular-ui-router.js" defer></script>
+        <script src="app.js" defer></script>
+        <script src="components/search-panel/search-panel.js" defer></script>
+        <script src="components/folder-list/folder-list.js" defer></script>
+        <script src="components/message-list/message-list.js" defer></script>
+        <script src="components/message-composer/message-composer.js" defer></script>
+    </head>
+
+<body ng-app="mailApp">
+    <div class="page-container" 
+        ng-controller="MailController as mailCtrl">
+
+        <header class="horizontal-container">
+            <!--<div ng-include=" 'components/mail-search.html' "></div>-->
+            <div class="logo">Angular Mail</div>
+            
+            <search-panel 
+                default-query=" mailCtrl.defaultQuery "
+                on-search-start = "mailCtrl.messageListTitle = 'Messages matching '+query "
+                on-search-results = "mailCtrl.messages = results "
+                >
+            </search-panel>
+            
+            <div ng-controller="AccountController as accountCtrl">
+                {{accountCtrl.accountEmail}}
+            </div>
+        </header>
+
+        <section class="page-center horizontal-container">
+            <nav class="page-left-menu">
+                
+                <section class="compose-toolbar">
+                    <button ng-click="mailCtrl.compose()">Compose</button>
+                </section>
+                
+                <section class="folder-list">
+                    <folder-list 
+                        folders=" mailCtrl.folders " 
+                        default-folder=" mailCtrl.defaultFolder "
+                        on-select="mailCtrl.selectFolder(folder)">
+                    </folder-list>
+                    
+                    <folder-list 
+                        title="Custom folders"
+                        folders=" mailCtrl.customFolders "
+                        on-select="mailCtrl.selectFolder(folder)" 
+                        allow-create="true">
+                    </folder-list>
+                    
+                    <!-- passing a specific value-->
+                    <folder-list 
+                        folders=" ['Trash'] " 
+                        on-select="mailCtrl.selectFolder(folder)"
+                        title="Other">
+                    </folder-list>
+
+                </section>
+            </nav>
+
+            <div ui-view>
+
+            </div>
+
+            <!--<section class="mail-composer"
+                     ng-show="mailCtrl.composerActive">
+                <message-composer 
+                    draft="mailCtrl.draft"
+                    on-save="mailCtrl.updateDraft(draft)"
+                    on-send="mailCtrl.send()"
+                    on-cancel="mailCtrl.closeComposer()"
+                >
+                    
+                </message-composer>    
+            </section> 
+                                             
+            <section class="horizontal-center message-list">
+                <message-list 
+                    title="mailCtrl.messageListTitle"
+                    messages="mailCtrl.messages"
+                    on-reply="mailCtrl.replyTo(message)"
+                    on-forward="mailCtrl.forward(message)"
+                    on-delete="mailCtrl.delete(message)"
+                    >
+                </message-list>
+            </section>
+            -->
+
+        </section>
+        
+        <footer> 
+            powered by Angular 1.5 and <a href="http://www.nispro.it">NIS s.r.l.</a>
+            <br/>
+        </footer>
+        
+    </div>
+</body>
+</html>

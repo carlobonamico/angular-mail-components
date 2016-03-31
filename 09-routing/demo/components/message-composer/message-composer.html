@@ -1,0 +1,14 @@
+<div class="mail-composer">
+    <h3>Compose message</h3>
+    From: {{composeCtrl.draft.from}}<br/>
+    To: <input type="email" ng-model="composeCtrl.draft.to"><br/>
+    Subject: <input ng-model="composeCtrl.draft.subject"><br/>
+    Body: <br/>
+    <textarea ng-model="composeCtrl.draft.body" ></textarea><br/>
+    <button 
+        ng-click="composeCtrl.send(composeCtrl.draft)">Send</button>
+    <button 
+        ng-click="composeCtrl.save(composeCtrl.draft)">Save</button>
+    <button 
+        ng-click="composeCtrl.cancel()">Cancel</button>
+</div> 

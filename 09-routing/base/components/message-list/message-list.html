@@ -1,0 +1,29 @@
+<h3>{{messageListCtrl.title}} - {{messageListCtrl.messages.length}} messages</h3>
+<button ng-click="messageListCtrl.next()">Next</button>
+<button ng-click="messageListCtrl.prev()">Prev</button>
+
+<div ng-repeat="message in messageListCtrl.messages" 
+    class="message" 
+    ng-class="{'message-selected' : message.selected, 
+               'message-list-odd' : $odd}">
+    <div class="message-summary" 
+         ng-class="{'message-current' : $index == messageListCtrl.currentMessageIndex}">
+        <input type="checkbox" ng-model="message.selected">
+        
+        <span class="star"> * </span>
+        
+        <span> {{$index}} From: {{message.from}}</span>
+        <span> {{message.subject}}</span>
+        <span> 10/03/2016 12:00</span><!-- TODO date formatted with filter -->
+        
+        <button ng-click="messageListCtrl.reply(message)">Reply</button>
+        <button ng-click="messageListCtrl.forward(message)">Forward</button>
+        <button ng-click="messageListCtrl.delete(message)">Delete</button>
+    </div>
+    
+    <pre class="message-body" ng-show="message === messageListCtrl.currentMessage">
+        {{message.body}}</pre>
+    <!--
+    <pre>{{message | json}}</pre>
+    -->
+</div>
