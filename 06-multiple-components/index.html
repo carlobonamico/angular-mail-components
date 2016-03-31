@@ -35,14 +35,14 @@
                 <section class="compose-toolbar">
                     <button ng-click="mailCtrl.compose()">Compose</button>
                 </section>
-            
+                
                 <section class="folder-list">
                     <folder-list 
                         folders=" mailCtrl.folders " 
                         default-folder=" mailCtrl.defaultFolder "
                         on-select="mailCtrl.selectFolder(folder)">
                     </folder-list>
-
+                    
                     <folder-list 
                         title="Custom folders"
                         folders=" mailCtrl.customFolders "

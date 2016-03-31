@@ -22,14 +22,11 @@ angular.module("mailApp")
     .controller("AccountController", AccountController);
 
 
-/* Main page controller, coordinates all the other components  */
-function MailController(AccountService)
-{
-    this.defaultQuery = "js";
-    
-    //TODO load messages list from service
-    function loadInbox(){
-        var messages = [
+/*
+    MessageService contains message model
+ */
+function MessageService(){
+    var messages = [
             {
                 to: "carlo.bonamico@gmail.com",
                 from: "sonia.pini@nispro.it",
@@ -55,7 +52,23 @@ function MailController(AccountService)
                 body: " a b c d e f  "
             }
         ];
+
+    this.getMessages = function(){
         return messages;
+    }    
+}
+
+angular.module("mailApp")
+    .service("MessageService", MessageService);
+
+/* Main page controller, coordinates all the other components  */
+function MailController(AccountService, MessageService)
+{
+    this.defaultQuery = "js";
+    
+    //TODO load messages list from service
+    function loadInbox(){ 
+        return MessageService.getMessages();
     };
     
     this.messages = [];
